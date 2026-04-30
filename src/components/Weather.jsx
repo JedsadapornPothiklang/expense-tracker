@@ -6,6 +6,18 @@ function Weather() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getWeatherIcon = (description) => {
+    const desc = description.toLowerCase();
+    if (desc.includes('clear') || desc.includes('sunny')) return '☀️';
+    if (desc.includes('cloud')) return '☁️';
+    if (desc.includes('rain')) return '🌧️';
+    if (desc.includes('snow')) return '❄️';
+    if (desc.includes('wind')) return '💨';
+    if (desc.includes('thunder')) return '⛈️';
+    if (desc.includes('mist') || desc.includes('fog')) return '🌫️';
+    return '🌤️';
+  };
+
   useEffect(() => {
     const fetchWeather = async () => {
       try {
@@ -23,7 +35,9 @@ function Weather() {
             const apiKey = import.meta.env.VITE_APP_OPENWEATHER_API_KEY;
 
             if (!apiKey) {
-              console.warn('OpenWeather API key not configured');
+              const message = 'OpenWeather API key not configured';
+              console.warn(message);
+              setError(message);
               setLoading(false);
               return;
             }
@@ -46,6 +60,7 @@ function Weather() {
           },
           (error) => {
             console.warn('Geolocation error:', error.message);
+            setError('Failed to get location');
             setLoading(false);
           }
         );
@@ -59,20 +74,20 @@ function Weather() {
     fetchWeather();
   }, []);
 
-  const getWeatherIcon = (description) => {
-    const desc = description.toLowerCase();
-    if (desc.includes('clear') || desc.includes('sunny')) return '☀️';
-    if (desc.includes('cloud')) return '☁️';
-    if (desc.includes('rain')) return '🌧️';
-    if (desc.includes('snow')) return '❄️';
-    if (desc.includes('wind')) return '💨';
-    if (desc.includes('thunder')) return '⛈️';
-    if (desc.includes('mist') || desc.includes('fog')) return '🌫️';
-    return '🌤️';
-  };
-
-  if (loading || error) {
+  if (loading) {
     return null;
+  }
+
+  if (error) {
+    return (
+      <div className={styles['weather-card']}>
+        <div className={styles['weather-icon']}>⚠️</div>
+        <div className={styles['weather-info']}>
+          <div className={styles['weather-temp']}>Weather unavailable</div>
+          <div className={styles['weather-desc']}>{error}</div>
+        </div>
+      </div>
+    );
   }
 
   if (!weather) {
