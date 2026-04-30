@@ -15,6 +15,9 @@
   --accent-primary: #047857;
   --accent-light: #10b981;
   --accent-hover: #059669;
+  --accent-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  --accent-shadow-hover: 0 6px 16px rgba(16, 185, 129, 0.4);
+  --accent-shadow-active: 0 2px 8px rgba(16, 185, 129, 0.2);
   --error-bg: #fee2e2;
   --error-text: #991b1b;
   --error-hover: #fecaca;
@@ -40,6 +43,9 @@
   --accent-primary: #10b981;
   --accent-light: #34d399;
   --accent-hover: #059669;
+  --accent-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  --accent-shadow-hover: 0 6px 16px rgba(16, 185, 129, 0.5);
+  --accent-shadow-active: 0 2px 8px rgba(16, 185, 129, 0.3);
   --error-bg: #7f1d1d;
   --error-text: #fca5a5;
   --error-hover: #b91c1c;
@@ -445,14 +451,24 @@ header h1 {
   border-radius: 14px;
   background: var(--accent-primary);
   color: white;
-  padding: 14px 20px;
+  padding: 14px 28px;
   cursor: pointer;
-  transition: background 0.2s ease;
-  font-weight: 600;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: var(--accent-shadow);
+  white-space: nowrap;
 }
 
 .budget-input-row button:hover {
   background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--accent-shadow-hover);
+}
+
+.budget-input-row button:active {
+  transform: translateY(0);
+  box-shadow: var(--accent-shadow-active);
 }
 
 .chart-section {
