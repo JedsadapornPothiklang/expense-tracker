@@ -12,7 +12,7 @@ function AppContent() {
   return (
     <div className={styles.app}>
       <header>
-        <h1>{import.meta.env.VITE_APP_APP_TITLE}</h1>
+        <h1>{import.meta.env.VITE_APP_TITLE}</h1>
         <button className={styles['theme-toggle']} onClick={toggleTheme}>
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </button>
