@@ -1,0 +1,24 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "env": {
+    "VITE_APP_APP_TITLE": {
+      "description": "Application title",
+      "required": false
+    },
+    "VITE_APP_OPENWEATHER_API_KEY": {
+      "description": "OpenWeather API key from https://openweathermap.org/api",
+      "required": false
+    }
+  },
+  "branches": [
+    {
+      "name": "main",
+      "autoExposeSystemEnvs": true
+    },
+    {
+      "name": "staging",
+      "autoExposeSystemEnvs": true
+    }
+  ]
+}
