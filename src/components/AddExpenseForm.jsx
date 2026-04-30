@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useExpenses } from '../context/ExpenseContext';
+import styles from '../App.module.css';
 
 function AddExpenseForm() {
   const { addExpense, categories } = useExpenses();
@@ -42,9 +43,9 @@ function AddExpenseForm() {
   }
 
   return (
-    <form className="add-form" onSubmit={handleSubmit}>
+    <form className={styles['add-form']} onSubmit={handleSubmit}>
       <h2>Add expense</h2>
-      {error && <p className="form-error">{error}</p>}
+      {error && <p className={styles['form-error']}>{error}</p>}
 
       <input
         value={name}

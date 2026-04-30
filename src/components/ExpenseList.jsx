@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useExpenses } from '../context/ExpenseContext';
+import styles from '../App.module.css';
 
 const COLORS = {
   Food: '#ff9500',
@@ -69,38 +70,38 @@ function ExpenseList() {
   }
 
   return (
-    <div className="expense-list-section">
-      <div className="tabs">
+    <div className={styles['expense-list-section']}>
+      <div className={styles.tabs}>
         {['All', ...categories].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
-            className={filter === cat ? 'tab active' : 'tab'}
+            className={`${styles.tab} ${filter === cat ? styles.active : ''}`}
           >
             {cat}
           </button>
         ))}
       </div>
 
-      <div className="expense-list">
+      <div className={styles['expense-list']}>
         {filteredExpenses.map((exp) => (
           <div
             key={exp.id}
-            className={`expense-item ${editingId === exp.id ? 'editing' : ''}`}
+            className={`${styles['expense-item']} ${editingId === exp.id ? styles.editing : ''}`}
           >
             <span
-              className="expense-color"
+              className={styles['expense-color']}
               style={{ background: COLORS[exp.category] || COLORS.Other }}
             />
 
             {editingId === exp.id ? (
-              <div className="expense-edit-form">
-                {editError && <p className="form-error">{editError}</p>}
+              <div className={styles['expense-edit-form']}>
+                {editError && <p className={styles['form-error']}>{editError}</p>}
                 <input
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                 />
-                <div className="expense-edit-row">
+                <div className={styles['expense-edit-row']}>
                   <input
                     type="number"
                     value={editAmount}
@@ -124,27 +125,27 @@ function ExpenseList() {
                     </option>
                   ))}
                 </select>
-                <div className="expense-edit-actions">
-                  <button type="button" className="save-button" onClick={() => saveEdit(exp.id)}>
+                <div className={styles['expense-edit-actions']}>
+                  <button type="button" className={styles['save-button']} onClick={() => saveEdit(exp.id)}>
                     Save
                   </button>
-                  <button type="button" className="cancel-button" onClick={cancelEdit}>
+                  <button type="button" className={styles['cancel-button']} onClick={cancelEdit}>
                     Cancel
                   </button>
                 </div>
               </div>
             ) : (
               <>
-                <div className="expense-details">
+                <div className={styles['expense-details']}>
                   <b>{exp.name}</b>
                   <small>{new Date(exp.date).toLocaleDateString()}</small>
                 </div>
                 <span>${exp.amount.toFixed(2)}</span>
-                <div className="expense-actions">
-                  <button type="button" className="edit-button" onClick={() => startEdit(exp)}>
+                <div className={styles['expense-actions']}>
+                  <button type="button" className={styles['edit-button']} onClick={() => startEdit(exp)}>
                     Edit
                   </button>
-                  <button type="button" className="delete-button" onClick={() => deleteExpense(exp.id)}>
+                  <button type="button" className={styles['delete-button']} onClick={() => deleteExpense(exp.id)}>
                     ✕
                   </button>
                 </div>

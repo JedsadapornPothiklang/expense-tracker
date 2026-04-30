@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useExpenses } from '../context/ExpenseContext';
+import styles from '../App.module.css';
 
 const COLORS = {
   Food: '#ff9500',
@@ -69,34 +70,34 @@ function ExpenseSummary() {
   };
 
   return (
-    <div className="summary">
+    <div className={styles.summary}>
       <h3>Total: ${totalAmount.toFixed(2)}</h3>
       <p>{expenses.length} transactions</p>
 
-      <div className="budget-block">
-        <div className="budget-row">
+      <div className={styles['budget-block']}>
+        <div className={styles['budget-row']}>
           <span>Monthly budget</span>
           <span>${budget > 0 ? budget.toFixed(2) : '0.00'}</span>
         </div>
 
         {budget > 0 && (
           <>
-            <div className="progress-wrapper">
-              <div className="progress-track">
+            <div className={styles['progress-wrapper']}>
+              <div className={styles['progress-track']}>
                 <div
-                  className="progress-bar"
+                  className={styles['progress-bar']}
                   style={{
                     width: `${budgetUsagePercent}%`,
                     background: budgetUsagePercent >= 100 ? '#dc2626' : '#10b981',
                   }}
                 />
               </div>
-              <span className="progress-label">{budgetUsagePercent.toFixed(0)}% used</span>
+              <span className={styles['progress-label']}>{budgetUsagePercent.toFixed(0)}% used</span>
             </div>
           </>
         )}
 
-        <div className="budget-input-row">
+        <div className={styles['budget-input-row']}>
           <input
             type="number"
             min="0"
@@ -111,7 +112,7 @@ function ExpenseSummary() {
         </div>
       </div>
 
-      <div className="chart-section">
+      <div className={styles['chart-section']}>
         <h4>Spending by category</h4>
 
         {categories.map((cat) => {
@@ -119,21 +120,21 @@ function ExpenseSummary() {
           const percent = totalAmount > 0 ? (amount / totalAmount) * 100 : 0;
 
           return (
-            <div className="chart-row" key={cat}>
-              <div className="chart-label">
-                <span className="chart-dot" style={{ background: COLORS[cat] || COLORS.Other }} />
+            <div className={styles['chart-row']} key={cat}>
+              <div className={styles['chart-label']}>
+                <span className={styles['chart-dot']} style={{ background: COLORS[cat] || COLORS.Other }} />
                 {cat}
               </div>
-              <div className="chart-track">
-                <div className="chart-fill" style={{ width: `${percent}%`, background: COLORS[cat] || COLORS.Other }} />
+              <div className={styles['chart-track']}>
+                <div className={styles['chart-fill']} style={{ width: `${percent}%`, background: COLORS[cat] || COLORS.Other }} />
               </div>
-              <div className="chart-value">${amount.toFixed(2)}</div>
+              <div className={styles['chart-value']}>${amount.toFixed(2)}</div>
             </div>
           );
         })}
       </div>
 
-      <button type="button" className="export-button" onClick={handleExportCSV}>
+      <button type="button" className={styles['export-button']} onClick={handleExportCSV}>
         Export CSV
       </button>
     </div>
